@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class StaticPagesController extends Controller
 {
     public function home(){
-      return view('static_pages/home');
+      return view('static_pages/home');//还可以写成return view('static_pages.home')
     }
 
     public function help(){
