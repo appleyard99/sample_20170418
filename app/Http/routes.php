@@ -36,3 +36,6 @@ get('/users/{id}/edit', 'UsersController@edit')->name('users.edit');
 patch('/users/{id}', 'UsersController@update')->name('users.update');
 delete('/users/{id}', 'UsersController@destroy')->name('users.destroy');
 */
+get('login','SessionsController@create')->name('login');//登陆
+post('login','SessionsController@store')->name('login');//记忆登陆账户;
+delete('logout','SessionsController@destroy')->name('logout');//退出登陆;
