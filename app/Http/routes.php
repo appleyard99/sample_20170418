@@ -39,3 +39,5 @@ delete('/users/{id}', 'UsersController@destroy')->name('users.destroy');
 get('login','SessionsController@create')->name('login');//登陆
 post('login','SessionsController@store')->name('login');//记忆登陆账户;
 delete('logout','SessionsController@destroy')->name('logout');//退出登陆;
+//用户邮箱激活路由
+get('signup/confirm/{token}','UsersController@confirmEmail')->name('confirm_email');

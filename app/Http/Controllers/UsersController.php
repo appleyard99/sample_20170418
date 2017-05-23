@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Auth;
+use Mail;
 class UsersController extends Controller
 {
   //初始化
@@ -35,15 +36,15 @@ class UsersController extends Controller
     public function store(Request $request){
         $this->validate($request,['name'=>'required|min:3|max:50',
                                   'email'=>'required|email|unique:users|max:255',
-                                  'password'=>'required|confirmed']);
+                               'password'=>'required|confirmed']);
         $user = User::create([
           'name'=>$request->name,
           'email'=>$request->email,
           'password'=>bcrypt($request->password),
         ]);
-        Auth::login($user);
-        session()->flash('success','欢迎,您将在这里开启一段新的旅程~');
-        return redirect()->route('users.show',[$user]);
+        $this->sendEmailConfirmationTo($user);
+        session()->flash('success','验证邮件已发到你邮箱上,请查收~');
+        return redirect()->route('/');
 
     }
     //编辑用户资料
@@ -76,6 +77,32 @@ class UsersController extends Controller
       session()->flash('success','成功删除用户!');
       return back();
     }
+    //发送邮件 调用mail的send接口;
+    public  function sendEmailConfirmationTo($user){
+      $view = 'emails.confirm';
+      $data = compact('user');
+      $from = 'apple_mgg@sina.com';
+      $name ='Apple';
+      $to = $user->email;
+      $subject = '感谢注册 Sample 应用！请确认你的邮箱。';
+      Mail::send($view,$data,function($message) use($from,$name,$to,$subject){
+        $message->from($from,$name)->to($to)->subject($subject);
+      });
+    }
+
+    //邮件确认;
+    public function confirmEmail($token){
+      $user = User::where('activation_token',$token)->firstOrFail();
+      $user->activated = true;
+      $user->activation_token = null;
+      $user->save();
+
+      Auth::login($user);
+      session()->flash('success','恭喜你,激活成功');
+      return redirect()->route('users.show',[$user]);
+
+    }
+
 
 
 
