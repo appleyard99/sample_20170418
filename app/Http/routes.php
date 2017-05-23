@@ -41,3 +41,8 @@ post('login','SessionsController@store')->name('login');//记忆登陆账户;
 delete('logout','SessionsController@destroy')->name('logout');//退出登陆;
 //用户邮箱激活路由
 get('signup/confirm/{token}','UsersController@confirmEmail')->name('confirm_email');
+//密码重置
+get('password/email','Auth\PasswordController@getEmail')->name('password.reset');
+post('password/email','Auth\PasswordController@postEmail')->name('password.reset');
+get('password/reset/{token}','Auth\PasswordController@getReset')->name('password.edit');
+post('password/reset','Auth\PasswordController@postReset')->name('password.update');

@@ -19,7 +19,7 @@ class PasswordController extends Controller
     */
 
     use ResetsPasswords;
-
+    protected $redirectPath ='/';//重新指定用户重置后跳转的路径未'/';默认是'/home'
     /**
      * Create a new password controller instance.
      *
@@ -29,4 +29,5 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
 }
