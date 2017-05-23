@@ -5837,7 +5837,7 @@ section.user_info {
     margin-top: 15px; }
 
 .gravatar {
-  float: left;
+  /*float: left;*/
   margin-right: 10px;
   max-width: 50px;
   border-radius: 50%; }
@@ -5853,5 +5853,28 @@ input {
 
 .panel {
   margin-top: 50px; }
+
+/* Users edit */
+.gravatar_edit {
+  margin: 15px auto;
+  text-align: center; }
+  .gravatar_edit .gravatar {
+    float: none;
+    max-width: 100px; }
+
+/* User index*/
+.users {
+  list-style: none;
+  margin: 0;
+  padding-left: 0; }
+  .users li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid #D5D5D5; }
+
+.delete-btn {
+  float: right;
+  position: relative;
+  right: 0; }
 
 /*# sourceMappingURL=app.css.map */
